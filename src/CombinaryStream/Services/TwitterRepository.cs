@@ -13,7 +13,7 @@ namespace CombinaryStream.Services {
             _limit = settings.TwitterLimit;
         }
         public async Task<IEnumerable<StreamItem>> GetItemsAsync() {
-            if (string.IsNullOrWhiteSpace(_connectionString)) return new StreamItem[0];
+            if (string.IsNullOrWhiteSpace(_connectionString) || _limit <= 0) return new StreamItem[0];
 
             const string query = @"
                 select
