@@ -11,14 +11,18 @@ namespace CombinaryStream.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IItemRepository _mergeService;
+        private readonly CachedMergeService _mergeService;
         public HomeController(CachedMergeService mergeService) {
             _mergeService = mergeService;
         }
 
         [HttpGet("/items.json")]
         public async Task<IActionResult> ItemsAsync() {
-            return Json(await _mergeService.GetItemsAsync());
+            var (items,cacheHit) = await _mergeService.GetItemsExAsync();
+
+            Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
+
+            return Json(items);
         }
         
         public IActionResult Index() {
