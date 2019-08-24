@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CombinaryStream.Models;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 
 namespace CombinaryStream.Services
 {
@@ -13,12 +12,12 @@ namespace CombinaryStream.Services
         private readonly MergeService _mergeService;
         private readonly TimeSpan? _ttl;
 
-        public CachedMergeService(IMemoryCache cache, MergeService mergeService, IConfiguration configuration) {
+        public CachedMergeService(IMemoryCache cache, MergeService mergeService, AppSettings settings) {
             _cache = cache;
             _mergeService = mergeService;
-            var ttlSec = int.Parse(configuration["CacheTtl"] ?? "0");
-            if (ttlSec > 0) {
-                _ttl = TimeSpan.FromSeconds(ttlSec);
+            
+            if (settings.CacheTtl > 0) {
+                _ttl = TimeSpan.FromSeconds(settings.CacheTtl);
             } else {
                 _ttl = null;
             }

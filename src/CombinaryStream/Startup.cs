@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CombinaryStream.Models;
 using CombinaryStream.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,9 @@ namespace CombinaryStream
             services.AddTransient<MergeService>();
             services.AddTransient<CachedMergeService>();
             services.AddMemoryCache();
+
+            var settings = Configuration.Get<AppSettings>();
+            services.AddSingleton(settings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

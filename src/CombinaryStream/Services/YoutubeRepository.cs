@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CombinaryStream.Models;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
-namespace CombinaryStream.Services
-{
-    public class YoutubeRepository : IItemRepository
-    {
+namespace CombinaryStream.Services {
+    public class YoutubeRepository : IItemRepository {
         private readonly string _connectionString;
         private readonly int _limit;
-
-        public YoutubeRepository(IConfiguration configuration) {
-            _connectionString = configuration["YoutubeConnectionString"];
-            _limit = int.Parse(configuration["YoutubeLimit"] ?? "100");
+        public YoutubeRepository(AppSettings settings) {
+            _connectionString = settings.YoutubeConnectionString;
+            _limit = settings.YoutubeLimit;
         }
-
         public async Task<IEnumerable<StreamItem>> GetItemsAsync() {
-            if(string.IsNullOrWhiteSpace(_connectionString)) return new StreamItem[0];
+            if (string.IsNullOrWhiteSpace(_connectionString)) return new StreamItem[0];
 
             const string query = @"
                 select
@@ -39,7 +32,7 @@ namespace CombinaryStream.Services
             ";
 
             using (var db = new NpgsqlConnection(_connectionString)) {
-                return await db.QueryAsync<StreamItem>(query, param: new {limit = _limit});
+                return await db.QueryAsync<StreamItem>(query, new {limit = _limit});
             }
         }
     }
