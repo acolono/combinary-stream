@@ -14,11 +14,15 @@ services:
     environment:
       # Youtube Parameters
       YoutubeConnectionString: "Host=youtube_db;Database=db;Username=user;Password=🔑"
-      YoutubeLimit": 500
+      YoutubeLimit": 50
 
       # Twitter Parameters
       TwitterConnectionString: "Host=twitter_db;Database=db;Username=user;Password=🔑"
-      TwitterLimit": 500
+      TwitterLimit": 50
+
+      # RSS Parameters
+      RssFeedUrl: "https://feed-url.xml"
+      RssFeedLimit: 50
 
       # Cache Settings ( 0 = Disabled )
       CacheTtl: 1800

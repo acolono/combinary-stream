@@ -37,6 +37,7 @@ namespace CombinaryStream
             });
             services.AddTransient<YoutubeRepository>();
             services.AddTransient<TwitterRepository>();
+            services.AddTransient<RssParser>();
             services.AddTransient<MergeService>();
             services.AddTransient<CachedMergeService>();
             services.AddMemoryCache();
