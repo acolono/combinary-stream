@@ -40,6 +40,7 @@ namespace CombinaryStream
             services.AddTransient<MergeService>();
             services.AddTransient<CachedMergeService>();
             services.AddMemoryCache();
+            services.AddHostedService<CacheRefreshService>();
 
             var settings = Configuration.Get<AppSettings>();
             services.AddSingleton(settings);

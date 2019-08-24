@@ -14,14 +14,15 @@ services:
     environment:
       # Youtube Parameters
       YoutubeConnectionString: "Host=youtube_db;Database=db;Username=user;Password=🔑"
-      YoutubeLimit": 10
+      YoutubeLimit": 500
 
       # Twitter Parameters
       TwitterConnectionString: "Host=twitter_db;Database=db;Username=user;Password=🔑"
-      TwitterLimit": 10
+      TwitterLimit": 500
 
-      # Cache Settings ( 0 => Disabled )
-      CacheTtl": 1800
+      # Cache Settings ( 0 = Disabled )
+      CacheTtl: 1800
+      AutoRefreshCache: "true"
 ```
 
 A list of items is available as json:
