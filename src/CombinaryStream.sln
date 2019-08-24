@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CombinaryStream", "CombinaryStream\CombinaryStream.csproj", "{0C3DB4DC-3853-4886-980F-7BAC595CB5DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C3DB4DC-3853-4886-980F-7BAC595CB5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3DB4DC-3853-4886-980F-7BAC595CB5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3DB4DC-3853-4886-980F-7BAC595CB5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3DB4DC-3853-4886-980F-7BAC595CB5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3EF9EE5F-A2F6-465A-AFB9-B7FEAE1209E9}
+	EndGlobalSection
+EndGlobal
