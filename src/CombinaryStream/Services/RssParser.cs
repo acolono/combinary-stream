@@ -17,15 +17,18 @@ namespace CombinaryStream.Services
             _feedUrl = settings.RssFeedUrl;
             _limit = settings.RssFeedLimit;
         }
+
+        private const string MediaNamespace = "http://search.yahoo.com/mrss/";
+        private const string DcNamespace = "http://purl.org/dc/elements/1.1/";
         
-        public IEnumerable<StreamItem> GetItems() {
+        public Task<IEnumerable<StreamItem>> GetItemsAsync() {
             var items = new List<StreamItem>();
-            if(string.IsNullOrWhiteSpace(_feedUrl) || _limit <= 0) return items;
+            if(string.IsNullOrWhiteSpace(_feedUrl) || _limit <= 0) return Task.FromResult(items.AsEnumerable());
             using (var reader = XmlReader.Create(_feedUrl)) {
                 var limit = _limit;
                 var feed = SyndicationFeed.Load(reader);
                 foreach (var i in feed.Items) {
-                    items.Add(new StreamItem {
+                    var item = new StreamItem {
                         Url = i.Links.FirstOrDefault()?.Uri?.ToString(),
                         ItemType = "rss",
                         Body = i.Summary?.Text,
@@ -33,16 +36,31 @@ namespace CombinaryStream.Services
                         PublishedAt = i.LastUpdatedTime > i.PublishDate ? i.LastUpdatedTime : i.PublishDate,
                         AuthorName = i.Authors.FirstOrDefault()?.Name,
                         AuthorUrl = i.Authors.FirstOrDefault()?.Uri,
-                    });
+                    };
+
+                    var mediaReader = i.ElementExtensions.FirstOrDefault(x => x.OuterName == "content" && x.OuterNamespace == MediaNamespace)?.GetReader();
+                    if (mediaReader != null) {
+                        var url = mediaReader.GetAttribute("url");
+                        var medium = mediaReader.GetAttribute("medium");
+                        if (medium == "image") item.ThumbnailUrl = url;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(item.AuthorName)) {
+                        var dcReader = i.ElementExtensions.FirstOrDefault(x => x.OuterName == "creator" && x.OuterNamespace == DcNamespace)?.GetReader();
+                        if (dcReader != null) {
+                            if(dcReader.Read()) item.AuthorName = dcReader.Value;
+                        }
+                    }
+
+
+
+                    items.Add(item);
                     if(limit-- <= 0) break;
                 }
             }
 
-            return items;
+            return Task.FromResult(items.AsEnumerable());
         }
-        
-        public Task<IEnumerable<StreamItem>> GetItemsAsync() {
-            return Task.FromResult(GetItems());
-        }
+
     }
 }
