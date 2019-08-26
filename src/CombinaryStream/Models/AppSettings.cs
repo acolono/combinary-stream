@@ -7,8 +7,6 @@ namespace CombinaryStream.Models
 {
     public class AppSettings
     {
-        public string RssFeedUrl { get; set; }
-        public int RssFeedLimit { get; set; } = 100;
         public string YoutubeConnectionString { get; set; }
         public int YoutubeLimit { get; set; } = 100;
         public string TwitterConnectionString { get; set; }
@@ -17,5 +15,11 @@ namespace CombinaryStream.Models
         public int FacebookLimit { get; set; } = 100;
         public int CacheTtl { get; set; } = 1800;
         public bool AutoRefreshCache { get; set; } = true;
+        public List<RssSettings> Rss { get; set; }
+    }
+
+    public class RssSettings {
+        public string FeedUrl { get; set; }
+        public int Limit { get; set; } = 100;
     }
 }

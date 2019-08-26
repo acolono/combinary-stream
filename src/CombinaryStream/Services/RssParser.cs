@@ -11,22 +11,18 @@ namespace CombinaryStream.Services
 {
     public class RssParser : IItemRepository
     {
-        private readonly string _feedUrl;
-        private readonly int _limit;
-
+        private List<RssSettings> _settings;
         public RssParser(AppSettings settings) {
-            _feedUrl = settings.RssFeedUrl;
-            _limit = settings.RssFeedLimit;
+            _settings = settings.Rss;
         }
 
         private const string MediaNamespace = "http://search.yahoo.com/mrss/";
         private const string DcNamespace = "http://purl.org/dc/elements/1.1/";
-        
-        public Task<IEnumerable<StreamItem>> GetItemsAsync() {
+
+        public Task<List<StreamItem>> GetFeedAsync(string feedUrl, int limit) {
             var items = new List<StreamItem>();
-            if(string.IsNullOrWhiteSpace(_feedUrl) || _limit <= 0) return Task.FromResult(items.AsEnumerable());
-            using (var reader = XmlReader.Create(_feedUrl)) {
-                var limit = _limit;
+            if(string.IsNullOrWhiteSpace(feedUrl) || limit <= 0) return Task.FromResult(items);
+            using (var reader = XmlReader.Create(feedUrl)) {
                 var feed = SyndicationFeed.Load(reader);
                 foreach (var i in feed.Items) {
                     var item = new StreamItem {
@@ -64,7 +60,19 @@ namespace CombinaryStream.Services
                 }
             }
 
-            return Task.FromResult(items.AsEnumerable());
+            return Task.FromResult(items);
+        }
+        
+        public async Task<IEnumerable<StreamItem>> GetItemsAsync() {
+            var items = new List<StreamItem>();
+            if (_settings == null || !_settings.Any()) return items;
+
+            var tasks = _settings.Select(s => GetFeedAsync(s.FeedUrl, s.Limit)).ToList();
+            foreach (var task in tasks) {
+                items.AddRange(await task);
+            }
+
+            return items;
         }
 
     }
