@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Schema;
 using CombinaryStream.Models;
 
 namespace CombinaryStream.Services
@@ -46,13 +47,17 @@ namespace CombinaryStream.Services
                     }
 
                     if (string.IsNullOrWhiteSpace(item.AuthorName)) {
-                        var dcReader = i.ElementExtensions.FirstOrDefault(x => x.OuterName == "creator" && x.OuterNamespace == DcNamespace)?.GetReader();
-                        if (dcReader != null) {
-                            if(dcReader.Read()) item.AuthorName = dcReader.Value;
+                        var dcCreatorReader = i.ElementExtensions.FirstOrDefault(x => x.OuterName == "creator" && x.OuterNamespace == DcNamespace)?.GetReader();
+                        if (dcCreatorReader != null) {
+                            if(dcCreatorReader.Read()) item.AuthorName = dcCreatorReader.Value;
                         }
                     }
 
-
+                    var dcDateReader = i.ElementExtensions.FirstOrDefault(x => x.OuterName == "date" && x.OuterName == DcNamespace)?.GetReader();
+                    if (dcDateReader != null && dcDateReader.Read() && DateTimeOffset.TryParse(dcDateReader.Value, out var dcDate)) {
+                        if (dcDate > item.PublishedAt) item.PublishedAt = dcDate;
+                    }
+                    
 
                     items.Add(item);
                     if(limit-- <= 0) break;
