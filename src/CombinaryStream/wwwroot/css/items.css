@@ -1,0 +1,235 @@
+﻿@charset "UTF-8";
+
+body {
+    padding: 2em;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Social Feed */
+/* breaks Words when they are too long and would burst the layout. */
+.combinary {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.combinary__show-original-input {
+    display: none;
+}
+
+    .combinary__show-original-input:checked + .combinary__show-original-element {
+        background-position: center right;
+    }
+
+        .combinary__show-original-input:checked + .combinary__show-original-element:hover ~ .combinary__item:after {
+            display: none;
+        }
+
+.combinary__show-original-element {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    cursor: pointer;
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/310306/eyes.svg");
+    background-repeat: none;
+    background-position: center left;
+    background-size: 60px 30px;
+    height: 30px;
+    width: 30px;
+    display: block;
+}
+
+    .combinary__show-original-element:hover ~ .combinary__item:after {
+        content: "Attention! With a click on this -moz-element, the original content (if available) will be loaded. this will include an iframe and you can possibly be tracked from the provider from the seervice which will be loaded… blabla bad text.";
+        content: "Attention! With a click on this element, the original content (if available) will be loaded. this will include an iframe and you can possibly be tracked from the provider from the seervice which will be loaded… blabla bad text.";
+        margin: 45px 15px 15px 15px;
+        padding: 20px;
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #000;
+    }
+
+    .combinary__show-original-element span {
+        display: none;
+    }
+
+.combinary__item {
+    overflow: hidden;
+}
+
+.combinary__network {
+    /* Non standard for webkit */
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    padding-right: 30px;
+    margin: 0 0 10px 0;
+    flex-grow: 1;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #3f3f3f;
+}
+
+.combinary__media img {
+    width: 100%;
+    height: auto;
+}
+
+.combinary__title {
+    clear: both;
+    padding: 0 15px;
+    margin: 15px 0 0 0;
+    /* Non standard for webkit */
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    font-size: 22px;
+}
+
+.combinary__text {
+    clear: both;
+    padding: 15px;
+    /* Non standard for webkit */
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    font-size: 18px;
+}
+
+    .combinary__text a {
+        color: #fff;
+        font-weight: inherit;
+        /* could be removed */
+        text-decoration: underline;
+    }
+
+.combinary__read-more {
+    color: #fff;
+    font-size: 14px;
+}
+
+.combinary__body {
+    background: #3f3f3f;
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+}
+
+.combinary__footer {
+    margin: 0 15px;
+    padding: 15px 0;
+    border-top: 1px solid #fff;
+    font-size: 16px;
+    overflow: auto;
+}
+
+.combinary__author a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    .combinary__author a:hover {
+        text-decoration: underline;
+    }
+
+.combinary--facebook .combinary__network {
+    color: #306199;
+}
+
+.combinary--facebook .combinary__body {
+    background-color: #306199;
+}
+
+.combinary--facebook[data-attachement=""] .combinary__text {
+    background-color: #27507e;
+}
+
+.combinary--twitter .combinary__network {
+    color: #26c4f1;
+}
+
+.combinary--twitter .combinary__body {
+    background-color: #26c4f1;
+}
+
+.combinary--twitter[data-attachement=""] .combinary__text {
+    background-color: #0fb5e5;
+}
+
+.combinary--youtube .combinary__network {
+    color: #df1c31;
+}
+
+.combinary--youtube .combinary__body {
+    background-color: #df1c31;
+}
+
+.l-combinary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .l-combinary > h2 {
+        position: absolute !important;
+        left: 0;
+        top: 0;
+        clip: rect(1px 1px 1px 1px);
+        /* IE6, IE7 */
+        clip: rect(1px, 1px, 1px, 1px);
+        overflow: hidden;
+        height: 1px;
+    }
+
+.l-combinary__item {
+    padding: 0 20px;
+    margin-bottom: 40px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .l-combinary__item:only-child {
+        max-width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .l-combinary__item:last-child {
+        margin-bottom: 0;
+    }
+
+    .l-combinary__item:only-child {
+        margin-bottom: 0;
+    }
+
+@media only screen and (min-width: 800px) {
+    .l-combinary__item {
+        flex: 0 0 360px;
+        flex-grow: 1;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .l-combinary__item {
+        flex: 0 0 360px;
+        flex-grow: 1;
+    }
+}
+
+input[type=checkbox]:checked ~ .combinary__item .combinary__body,
+input[type=checkbox]:checked ~ .combinary__item .combinary__network {
+    display: none;
+}

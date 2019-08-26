@@ -1,8 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ICollection<StreamItem>
+@{
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CombinaryStream</title>
+    <link rel="stylesheet" href="~/css/items.css" asp-append-version="true"/>
+</head>
+<body>
+<section style="text-align: center; font-size: 200%">
+    <a asp-action="JsonItemsAsync">Json</a> |
+    <a asp-action="HtmlItems">Html</a>
+</section>
+<section class="l-combinary">
+    <h2>Combinary Stream</h2>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    @await Html.PartialAsync("_ItemsPartial", Model)
+</section>
+</body>
+</html>

@@ -1,0 +1,5 @@
+﻿@model ICollection<StreamItem>
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("_ItemsPartial", Model)

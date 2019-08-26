@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +15,7 @@ namespace CombinaryStream.Controllers
         }
 
         [HttpGet("/items.json")]
-        public async Task<IActionResult> ItemsAsync() {
+        public async Task<IActionResult> JsonItemsAsync() {
             var (items,cacheHit) = await _mergeService.GetItemsExAsync();
 
             Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
@@ -25,8 +23,20 @@ namespace CombinaryStream.Controllers
             return Json(items);
         }
         
-        public IActionResult Index() {
-            return RedirectToAction(nameof(ItemsAsync));
+        [HttpGet("/")]
+        public async Task<IActionResult> Index() {
+            var (items,cacheHit) = await _mergeService.GetItemsExAsync();
+
+            Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
+            return View(items.ToList());
+        }
+
+        [HttpGet("/items.html")]
+        public async Task<IActionResult> HtmlItems() {
+            var (items,cacheHit) = await _mergeService.GetItemsExAsync();
+
+            Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
+            return View(items.ToList());
         }
 
         public IActionResult Privacy() {
