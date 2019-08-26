@@ -20,6 +20,10 @@ services:
       TwitterConnectionString: "Host=twitter_db;Database=db;Username=user;Password=🔑"
       TwitterLimit": 50
 
+      # Facebook Parameters
+      FacebookConnectionString: "Host=twitter_db;Database=db;Username=user;Password=🔑"
+      FacebookLimit": 50
+
       # RSS Parameters
       RssFeedUrl: "https://feed-url.xml"
       RssFeedLimit: 50
@@ -44,8 +48,8 @@ It will look like this:
         "authorName": "Author Name (@screen_name)",
         "authorUrl": "https://twitter.com/screen_name",
         "publishedAt": "2019-08-23T19:11:31+00:00"
-      },
-      {
+    },
+    {
         "url": "https://www.youtube.com/watch?v=videoId",
         "itemType": "youtube",
         "title": "Title",
@@ -53,6 +57,15 @@ It will look like this:
         "thumbnailUrl": "https://i.ytimg.com/vi/videoId/maxresdefault.jpg",
         "authorName": "Channel Name",
         "publishedAt": "2019-08-20T19:26:53+00:00"
-      }
+    },
+    {
+        "url": "https://example.com/article",
+        "itemType": "rss",
+        "title": "Title",
+        "body": "Body",
+        "thumbnailUrl": "https://cdn.example.com/thumbnail.jpg",
+        "authorName": "Author",
+        "publishedAt": "2019-08-19T10:19:28+00:00"
+    }    
 ]
 ```
