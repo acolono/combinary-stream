@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CombinaryStream
 {
@@ -46,6 +47,8 @@ namespace CombinaryStream
 
             var settings = Configuration.Get<AppSettings>();
             services.AddSingleton(settings);
+
+            Console.WriteLine(JToken.FromObject(settings).ToString(Formatting.Indented));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
