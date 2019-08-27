@@ -35,6 +35,13 @@ namespace CombinaryStream.Services {
             return Task.CompletedTask;
         }
         private void DoWork(object _) {
+            try {
+                DoWork();
+            } catch (Exception e) {
+                _logger.LogError("Failed to refresh cache", e);
+            }
+        }
+        private void DoWork() {
             var sw = new Stopwatch();
             sw.Start();
             using (var scope = _services.CreateScope()) {
