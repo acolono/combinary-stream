@@ -9,6 +9,13 @@ version: "2.2"
 services:
   stream:
     image: quay.io/0xff/combinary-stream:master
+    restart: always
+    read_only: true
+    mem_limit: "1g"
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp      
     ports:
       - "8188:8080"
     environment:
