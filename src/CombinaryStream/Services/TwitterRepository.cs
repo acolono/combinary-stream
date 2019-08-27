@@ -19,11 +19,10 @@ namespace CombinaryStream.Services {
                 select
                        t.url as ""Url"",
                        'twitter' as ""ItemType"",
-                       '' as ""Title"",
                        t.text as ""Body"",
                        u.name || ' (@' || u.screen_name || ')' as ""AuthorName"",
                        'https://twitter.com/' || u.screen_name as ""AuthorUrl"",
-                       ts as ""PublishedAt""
+                       t.ts as ""PublishedAt""
 
                 from db.tweet t
                 left join db.user u on t.user_id = u.id
