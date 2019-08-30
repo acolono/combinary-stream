@@ -186,6 +186,7 @@ body {
 
 .l-combinary__col {
     flex-grow: 1;
+    flex-basis: 0;
 }
 
 /* 2 columns by default, hide columns 2 & 3 */
