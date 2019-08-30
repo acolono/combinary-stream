@@ -33,7 +33,7 @@ services:
 
       # RSS Parameters
       Rss:0:FeedUrl: "https://feed-0-url.xml"
-      Rss:0:FeedLimit: 50
+      Rss:0:Limit: 50
 
       # Cache Settings ( 0 = Disabled )
       CacheTtl: 1800
