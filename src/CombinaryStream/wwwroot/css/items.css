@@ -100,7 +100,7 @@ body {
     clear: both;
     padding: 15px;
     /* Non standard for webkit */
-    word-break: break-word;
+    word-break: break-all;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
@@ -176,60 +176,49 @@ body {
     background-color: #df1c31;
 }
 
+
+
+
 .l-combinary {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    padding: .5rem .5rem 0 .5rem;
 }
 
-    .l-combinary > h2 {
-        position: absolute !important;
-        left: 0;
-        top: 0;
-        clip: rect(1px 1px 1px 1px);
-        /* IE6, IE7 */
-        clip: rect(1px, 1px, 1px, 1px);
-        overflow: hidden;
-        height: 1px;
-    }
-
-.l-combinary__item {
-    padding: 0 20px;
-    margin-bottom: 40px;
-    max-width: 360px;
-    margin-left: auto;
-    margin-right: auto;
+.l-combinary__col {
+    flex-grow: 1;
 }
 
-    .l-combinary__item:only-child {
-        max-width: 340px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .l-combinary__item:last-child {
-        margin-bottom: 0;
-    }
-
-    .l-combinary__item:only-child {
-        margin-bottom: 0;
-    }
-
-@media only screen and (min-width: 800px) {
-    .l-combinary__item {
-        flex: 0 0 360px;
-        flex-grow: 1;
-    }
-}
-
-@media only screen and (min-width: 1200px) {
-    .l-combinary__item {
-        flex: 0 0 360px;
-        flex-grow: 1;
-    }
-}
-
-input[type=checkbox]:checked ~ .combinary__item .combinary__body,
-input[type=checkbox]:checked ~ .combinary__item .combinary__network {
+/* 2 columns by default, hide columns 2 & 3 */
+.l-combinary__col:nth-child(1),
+.l-combinary__col:nth-child(2),
+.l-combinary__col:nth-child(3) {
     display: none;
+}
+
+/* 3 columns at medium size */
+@media (min-width: 560px) {
+    .l-combinary__col:nth-child(1) {
+        display: block;
+    }
+
+    /* show column 1 & 2 */
+}
+/* 3 columns at medium size */
+@media (min-width: 780px) {
+    .l-combinary__col:nth-child(2) {
+        display: block;
+    }
+
+    /* show column 1 & 2 */
+}
+/* 4 columns at large size */
+@media (min-width: 1100px) {
+    .l-combinary__col:nth-child(3) {
+        display: block;
+    }
+
+    /* show column 3 */
+}
+.l-combinary__item {
+    margin: .5rem .5rem 1rem .5rem;
 }
