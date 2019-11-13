@@ -20,6 +20,7 @@ namespace CombinaryStream.Services {
                        t.url as ""Url"",
                        'twitter' as ""ItemType"",
                        t.text as ""Body"",
+                       t.media_photo as ""ThumbnailUrl"",
                        u.name || ' (@' || u.screen_name || ')' as ""AuthorName"",
                        'https://twitter.com/' || u.screen_name as ""AuthorUrl"",
                        t.ts as ""PublishedAt""
