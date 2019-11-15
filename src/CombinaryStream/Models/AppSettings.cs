@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CombinaryStream.Models
 {
@@ -18,6 +15,8 @@ namespace CombinaryStream.Models
         public List<RssSettings> Rss { get; set; }
         public int NagEvery { get; set; } = 50;
         public StreamItem Nag { get; set; }
+        public string DateFormat { get; set; } = "dd.MM.yyyy";
+        public string ReadMoreText { get; set; } = "read more";
     }
 
     public class RssSettings {

@@ -1,5 +1,6 @@
 ﻿@using CombinaryStream.Extensions
 @model ICollection<StreamItem>
+@inject AppSettings AppSettings
 
 @foreach (var i in Model) {
     <div class="l-combinary__item">
@@ -20,7 +21,7 @@
                     <div class="combinary__text">
                         @i.Body.Sanitize()
                         @if (!string.IsNullOrWhiteSpace(i.Url)) {
-                            <a href="@i.Url" target="_blank" class="combinary__read-more">read more</a>
+                            <a href="@i.Url" target="_blank" class="combinary__read-more">@AppSettings.ReadMoreText</a>
                         }
                     </div>
                     <footer class="combinary__footer">
@@ -28,7 +29,7 @@
                             <a href="@i.AuthorUrl" target="_blank">@i.AuthorName</a>
                         </span>
                         @if (i.PublishedAt != DateTimeOffset.MinValue) {
-                            <span>@i.PublishedAt.ToString("dd.MM.yyyy")</span>
+                            <span>@i.PublishedAt.ToString(AppSettings.DateFormat)</span>
                         }
                     </footer>
                 </div>
