@@ -3,7 +3,7 @@
 
 @foreach (var i in Model) {
     <div class="l-combinary__item">
-        <article class="combinary combinary--@i.ItemType.ToLowerInvariant()">
+        <article class="combinary combinary--@i.ItemType?.ToLowerInvariant()">
             <div class="combinary__item">
                 <header>
                     <h3 class="combinary__network">@i.ItemType</h3>
@@ -19,13 +19,17 @@
                     }
                     <div class="combinary__text">
                         @i.Body.Sanitize()
-                        <a href="@i.Url" target="_blank" class="combinary__read-more">read more</a>
+                        @if (!string.IsNullOrWhiteSpace(i.Url)) {
+                            <a href="@i.Url" target="_blank" class="combinary__read-more">read more</a>
+                        }
                     </div>
                     <footer class="combinary__footer">
                         <span class="combinary__author">
                             <a href="@i.AuthorUrl" target="_blank">@i.AuthorName</a>
                         </span>
-                        <span>@i.PublishedAt.ToString("dd.MM.yyyy")</span>
+                        @if (i.PublishedAt != DateTimeOffset.MinValue) {
+                            <span>@i.PublishedAt.ToString("dd.MM.yyyy")</span>
+                        }
                     </footer>
                 </div>
             </div>

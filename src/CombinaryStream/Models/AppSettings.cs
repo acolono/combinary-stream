@@ -16,6 +16,8 @@ namespace CombinaryStream.Models
         public int CacheTtl { get; set; } = 1800;
         public bool AutoRefreshCache { get; set; } = true;
         public List<RssSettings> Rss { get; set; }
+        public int NagEvery { get; set; } = 50;
+        public StreamItem Nag { get; set; }
     }
 
     public class RssSettings {
