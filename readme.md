@@ -38,6 +38,10 @@ services:
       # Cache Settings ( 0 = Disabled )
       CacheTtl: 1800
       AutoRefreshCache: "true"
+
+      # Optional
+      ReadMoreText: "read more"
+      DateFormat: "dd.MM.yyyy"
 ```
 
 A list of items is available as json:
