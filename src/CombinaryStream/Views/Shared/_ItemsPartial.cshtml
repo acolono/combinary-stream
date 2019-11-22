@@ -3,37 +3,40 @@
 @inject AppSettings AppSettings
 
 @foreach (var i in Model) {
-    <div class="l-combinary__item">
-        <article class="combinary combinary--@i.ItemType?.ToLowerInvariant()">
-            <div class="combinary__item">
-                <header>
-                    <h3 class="combinary__network">@i.ItemType</h3>
-                </header>
-                <div class="combinary__body">
-                    @if (!string.IsNullOrWhiteSpace(i.ThumbnailUrl)) {
-                        <div class="combinary__media">
-                            <img src="@i.ThumbnailUrl" alt="embed image">
-                        </div>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(i.Title)) {
-                        <h3 class="combinary__title">@i.Title</h3>
-                    }
-                    <div class="combinary__text">
-                        @i.Body.Sanitize()
-                        @if (!string.IsNullOrWhiteSpace(i.Url)) {
-                            <a href="@i.Url" target="_blank" class="combinary__read-more">@AppSettings.ReadMoreText</a>
-                        }
+    <article class="combinary combinary--@i.ItemType?.ToLowerInvariant()">
+        <div class="combinary__item">
+            <header>
+                <h3 class="combinary__network">@i.ItemType</h3>
+            </header>
+            <div class="combinary__body">
+                @if (!string.IsNullOrWhiteSpace(i.ThumbnailUrl)) {
+                    <div class="combinary__media">
+                        <img src="@i.ThumbnailUrl" alt="embed image">
                     </div>
-                    <footer class="combinary__footer">
-                        <span class="combinary__author">
-                            <a href="@i.AuthorUrl" target="_blank">@i.AuthorName</a>
-                        </span>
-                        @if (i.PublishedAt != DateTimeOffset.MinValue) {
-                            <span>@i.PublishedAt.ToString(AppSettings.DateFormat)</span>
-                        }
-                    </footer>
+                }
+                @if (!string.IsNullOrWhiteSpace(i.Title)) {
+                    <h3 class="combinary__title">@i.Title</h3>
+                }
+                <div class="combinary__text">
+                    @i.Body.Sanitize()
+                    @if (!string.IsNullOrWhiteSpace(i.Url)) {
+                        <a href="@i.Url" target="_blank" class="combinary__read-more">@AppSettings.ReadMoreText</a>
+                    }
                 </div>
+                <footer class="combinary__footer">
+                    <span class="combinary__author">
+                        @if (string.IsNullOrWhiteSpace(i.AuthorUrl)) {
+                            @i.AuthorName
+                        }
+                        else {
+                            <a href="@i.AuthorUrl" target="_blank">@i.AuthorName</a>
+                        }
+                    </span>
+                    @if (i.PublishedAt != DateTimeOffset.MinValue) {
+                        <span>@i.PublishedAt.ToString(AppSettings.DateFormat)</span>
+                    }
+                </footer>
             </div>
-        </article>
-    </div>
+        </div>
+    </article>
 }

@@ -16,22 +16,10 @@
     <a asp-action="HtmlItems">Html</a>
 </section>
 <section class="l-combinary">
-    <div class="l-combinary__col"></div>
-    <div class="l-combinary__col"></div>
-    <div class="l-combinary__col"></div>
-    <div class="l-combinary__col"></div>
     @await Html.PartialAsync("_ItemsPartial", Model)
 </section>
-<script src="https://unpkg.com/colcade@0.2.0/colcade.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // render layout
-        new Colcade( '.l-combinary', {
-            columns: '.l-combinary__col',
-            items: '.l-combinary__item'
-        });
-    });
-    window.attachEvent('onload', function(){
+    window.addEventListener('load', function(){
         // hide smaller images
         Array.prototype.slice.call(document.querySelectorAll(".combinary__media")).forEach(function(m){
             var img = m.querySelector("img");

@@ -32,8 +32,10 @@ namespace CombinaryStream.Controllers
         }
 
         [HttpGet("/items.html")]
-        public async Task<IActionResult> HtmlItems() {
+        public async Task<IActionResult> HtmlItems(int? limit = null) {
             var (items,cacheHit) = await _mergeService.GetItemsExAsync();
+
+            if (limit.HasValue) items = items.Take(limit.Value);
 
             Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
             return View(items.ToList());
