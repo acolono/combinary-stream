@@ -3,7 +3,8 @@
 @inject AppSettings AppSettings
 
 @foreach (var i in Model) {
-    <article class="combinary combinary--@i.ItemType?.ToLowerInvariant()">
+    var itemType = i.ItemType?.ToLowerInvariant() ?? "";
+    <article class="combinary combinary--@itemType" data-category="@itemType">
         <div class="combinary__item">
             <header>
                 <h3 class="combinary__network">@i.ItemType</h3>
