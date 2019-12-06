@@ -10,7 +10,6 @@ namespace CombinaryStream.Models
         public int TwitterLimit { get; set; } = 100;
         public string FacebookConnectionString { get; set; }
         public int FacebookLimit { get; set; } = 100;
-        public List<long> FacebookPageIds { get; set; }
         public int CacheTtl { get; set; } = 1800;
         public bool AutoRefreshCache { get; set; } = true;
         public List<RssSettings> Rss { get; set; }
