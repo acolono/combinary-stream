@@ -1,5 +1,4 @@
-﻿@charset "UTF-8";
-
+﻿/* Remove live! */
 body {
     padding: 2em;
     max-width: 1200px;
@@ -7,59 +6,53 @@ body {
     margin-right: auto;
 }
 
+/*
+  Shuffle needs either relative or absolute positioning on the container
+  It will set it for you, but it'll cause another style recalculation and layout.
+  AKA worse performance - so just set it here
+ */
+.l-combinary {
+    position: relative;
+    overflow: hidden;
+}
+
+.my-sizer-element {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+}
+
 /* Social Feed */
 /* breaks Words when they are too long and would burst the layout. */
 .combinary {
+    position: relative;
+    box-sizing: border-box;
+    min-height: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 40px;
+    float: left;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
-    position: relative;
 }
 
-.combinary__show-original-input {
-    display: none;
+@media only screen and (min-width: 600px) {
+    .combinary {
+        width: 50%;
+    }
 }
 
-    .combinary__show-original-input:checked + .combinary__show-original-element {
-        background-position: center right;
+@media only screen and (min-width: 1000px) {
+    .combinary {
+        width: 33.33333%;
     }
-
-        .combinary__show-original-input:checked + .combinary__show-original-element:hover ~ .combinary__item:after {
-            display: none;
-        }
-
-.combinary__show-original-element {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    cursor: pointer;
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/310306/eyes.svg");
-    background-repeat: none;
-    background-position: center left;
-    background-size: 60px 30px;
-    height: 30px;
-    width: 30px;
-    display: block;
 }
 
-    .combinary__show-original-element:hover ~ .combinary__item:after {
-        content: "Attention! With a click on this -moz-element, the original content (if available) will be loaded. this will include an iframe and you can possibly be tracked from the provider from the seervice which will be loaded… blabla bad text.";
-        content: "Attention! With a click on this element, the original content (if available) will be loaded. this will include an iframe and you can possibly be tracked from the provider from the seervice which will be loaded… blabla bad text.";
-        margin: 45px 15px 15px 15px;
-        padding: 20px;
-        position: absolute;
-        display: block;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(255, 255, 255, 0.9);
-        color: #000;
+@media only screen and (min-width: 1200px) {
+    .combinary {
+        width: 25%;
     }
-
-    .combinary__show-original-element span {
-        display: none;
-    }
+}
 
 .combinary__item {
     overflow: hidden;
@@ -71,23 +64,29 @@ body {
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
-    padding-right: 30px;
     margin: 0 0 10px 0;
     flex-grow: 1;
     text-transform: uppercase;
     font-weight: bold;
     color: #3f3f3f;
+    text-align: right;
 }
 
-.combinary__media img {
-    width: 100%;
-    height: auto;
+.combinary__media {
+    margin-top: -15px;
+    margin-bottom: 15px;
 }
+
+    .combinary__media img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
 
 .combinary__title {
-    clear: both;
     padding: 0 15px;
-    margin: 15px 0 0 0;
+    margin: 0 0 15px 0;
     /* Non standard for webkit */
     word-break: break-word;
     -webkit-hyphens: auto;
@@ -98,9 +97,9 @@ body {
 
 .combinary__text {
     clear: both;
-    padding: 15px;
+    padding: 0 15px 15px 15px;
     /* Non standard for webkit */
-    word-break: break-all;
+    word-break: break-word;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
@@ -117,6 +116,7 @@ body {
 .combinary__read-more {
     color: #fff;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .combinary__body {
@@ -124,6 +124,7 @@ body {
     color: #fff;
     font-size: 20px;
     position: relative;
+    padding-top: 15px;
 }
 
 .combinary__footer {
@@ -176,50 +177,3 @@ body {
     background-color: #df1c31;
 }
 
-
-
-
-.l-combinary {
-    display: flex;
-    padding: .5rem .5rem 0 .5rem;
-}
-
-.l-combinary__col {
-    flex-grow: 1;
-    flex-basis: 0;
-}
-
-/* 2 columns by default, hide columns 2 & 3 */
-.l-combinary__col:nth-child(1),
-.l-combinary__col:nth-child(2),
-.l-combinary__col:nth-child(3) {
-    display: none;
-}
-
-/* 3 columns at medium size */
-@media (min-width: 560px) {
-    .l-combinary__col:nth-child(1) {
-        display: block;
-    }
-
-    /* show column 1 & 2 */
-}
-/* 3 columns at medium size */
-@media (min-width: 780px) {
-    .l-combinary__col:nth-child(2) {
-        display: block;
-    }
-
-    /* show column 1 & 2 */
-}
-/* 4 columns at large size */
-@media (min-width: 1100px) {
-    .l-combinary__col:nth-child(3) {
-        display: block;
-    }
-
-    /* show column 3 */
-}
-.l-combinary__item {
-    margin: .5rem .5rem 1rem .5rem;
-}
