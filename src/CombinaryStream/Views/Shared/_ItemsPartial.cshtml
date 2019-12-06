@@ -11,9 +11,15 @@
             </header>
             <div class="combinary__body">
                 @if (!string.IsNullOrWhiteSpace(i.ThumbnailUrl)) {
-                    <div class="combinary__media">
+                <div class="combinary__media">
+                    @if (!string.IsNullOrWhiteSpace(i.Url)) {
+                        <a href="@i.Url" target="_blank" class="combinary__read-more"><img src="@i.ThumbnailUrl" alt="embed image"></a>
+                    }
+                    else {
                         <img src="@i.ThumbnailUrl" alt="embed image">
-                    </div>
+                    }
+
+                </div>
                 }
                 @if (!string.IsNullOrWhiteSpace(i.Title)) {
                     <h3 class="combinary__title">@i.Title</h3>
