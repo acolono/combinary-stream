@@ -15,7 +15,7 @@ namespace CombinaryStream.Controllers
         }
 
         [HttpGet("/items.json")]
-        public async Task<IActionResult> JsonItemsAsync() {
+        public async Task<IActionResult> JsonItems() {
             var (items,cacheHit) = await _mergeService.GetItemsExAsync();
 
             Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
