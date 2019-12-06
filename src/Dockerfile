@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-sdk-alpine AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
 WORKDIR /src
 COPY ["*.sln", "./"]
 COPY ["*/*.csproj", "./"]
@@ -8,7 +8,7 @@ COPY . .
 RUN dotnet publish --no-restore "CombinaryStream/CombinaryStream.csproj" -c Release -o /app
 RUN chmod -R a-w-x+X /app
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 WORKDIR /app
 ENV ASPNETCORE_URLS="http://+:8080"
 EXPOSE 8080

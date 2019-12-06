@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CombinaryStream.Models;
 using CombinaryStream.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -25,17 +21,11 @@ namespace CombinaryStream
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.Configure<CookiePolicyOptions>(options => {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+            services.AddControllersWithViews().AddJsonOptions(o => {
+                o.JsonSerializerOptions.WriteIndented = true;
+                o.JsonSerializerOptions.IgnoreNullValues = true;
             });
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(o => {
-                o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                o.SerializerSettings.Formatting = Formatting.Indented;
-            });
             services.AddTransient<YoutubeRepository>();
             services.AddTransient<TwitterRepository>();
             services.AddTransient<FacebookRepository>();
@@ -52,7 +42,7 @@ namespace CombinaryStream
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
@@ -61,12 +51,16 @@ namespace CombinaryStream
             }
 
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
-            app.UseMvc(routes => {
-                routes.MapRoute(
+            app.UseRouting();
+
+            //app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
