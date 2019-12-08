@@ -37,7 +37,7 @@ namespace CombinaryStream.Services
                   order by created_time desc
                   limit 1
                 )
-                where p.page_id in @pageids
+                where p.page_id = any(@pageids)
                 order by p.created_time desc
                 limit @limit
             ";
