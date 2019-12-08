@@ -21,22 +21,23 @@ services:
     environment:
       # Youtube Parameters
       YoutubeConnectionString: "Host=youtube_db;Database=db;Username=user;Password=🔑"
-      YoutubeLimit": 50
+      # YoutubeLimit: "50"
 
       # Twitter Parameters
       TwitterConnectionString: "Host=twitter_db;Database=db;Username=user;Password=🔑"
-      TwitterLimit": 50
+      # TwitterLimit: "50"
 
       # Facebook Parameters
       FacebookConnectionString: "Host=twitter_db;Database=db;Username=user;Password=🔑"
-      FacebookLimit": 50
+      # FacebookLimit: "50"
+      # FacebookPageIds:0: '0000000000000'
 
       # RSS Parameters
       Rss:0:FeedUrl: "https://feed-0-url.xml"
-      Rss:0:Limit: 50
+      Rss:0:Limit: "50"
 
       # Cache Settings ( 0 = Disabled )
-      CacheTtl: 1800
+      CacheTtl: "1800"
       AutoRefreshCache: "true"
 
       # Optional
