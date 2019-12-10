@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CombinaryStream.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using CombinaryStream.Models;
 using CombinaryStream.Services;
@@ -15,30 +16,24 @@ namespace CombinaryStream.Controllers
         }
 
         [HttpGet("/items.json")]
-        public async Task<IActionResult> JsonItems() {
+        public async Task<IActionResult> JsonItems(int? offset = null, int? limit = null) {
             var (items,cacheHit) = await _mergeService.GetItemsExAsync();
-
             Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
-
-            return Json(items);
+            return Json(items.SkipTake(offset, limit));
         }
         
         [HttpGet("/")]
-        public async Task<IActionResult> Index() {
+        public async Task<IActionResult> Index(int? offset = null, int? limit = null) {
             var (items,cacheHit) = await _mergeService.GetItemsExAsync();
-
             Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
-            return View(items.ToList());
+            return View(items.SkipTake(offset, limit).ToList());
         }
 
         [HttpGet("/items.html")]
-        public async Task<IActionResult> HtmlItems(int? limit = null) {
+        public async Task<IActionResult> HtmlItems(int? offset = null, int ? limit = null) {
             var (items,cacheHit) = await _mergeService.GetItemsExAsync();
-
-            if (limit.HasValue) items = items.Take(limit.Value);
-
             Response.Headers.Add("X-StreamCache", cacheHit ? "Hit" : "Miss");
-            return View(items.ToList());
+            return View(items.SkipTake(offset,limit).ToList());
         }
 
         public IActionResult Privacy() {
