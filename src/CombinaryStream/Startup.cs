@@ -13,11 +13,13 @@ namespace CombinaryStream
 {
     public class Startup
     {
+        private readonly AppSettings _settings;
+
         public Startup(IConfiguration configuration) {
-            Configuration = configuration;
+            _settings = configuration.Get<AppSettings>();
         }
 
-        public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
@@ -35,14 +37,17 @@ namespace CombinaryStream
             services.AddMemoryCache();
             services.AddHostedService<CacheRefreshService>();
 
-            var settings = Configuration.Get<AppSettings>();
-            services.AddSingleton(settings);
+            services.AddSingleton(_settings);
 
-            Console.WriteLine(JToken.FromObject(settings).ToString(Formatting.Indented));
+            Console.WriteLine(JToken.FromObject(_settings).ToString(Formatting.Indented));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+            if (!string.IsNullOrWhiteSpace(_settings.BasePath)) {
+                app.UsePathBase(_settings.BasePath);
+            }
+
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }

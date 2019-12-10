@@ -18,6 +18,7 @@ namespace CombinaryStream.Models
         public StreamItem Nag { get; set; }
         public string DateFormat { get; set; } = "dd.MM.yyyy";
         public string ReadMoreText { get; set; } = "read more";
+        public string BasePath { get; set; }
     }
 
     public class RssSettings {
