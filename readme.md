@@ -30,7 +30,8 @@ services:
       # Facebook Parameters
       FacebookConnectionString: "Host=twitter_db;Database=db;Username=user;Password=🔑"
       # FacebookLimit: "50"
-      # FacebookPageIds:0: '0000000000000'
+      # FacebookPageIds:0: '0000000000000' # optional - filter by facebook page_id
+      # FacebookPageIds:1: '0000000000000'
 
       # RSS Parameters
       Rss:0:FeedUrl: "https://feed-0-url.xml"
@@ -43,6 +44,7 @@ services:
       # Optional
       ReadMoreText: "read more"
       DateFormat: "dd.MM.yyyy"
+      BasePath: "/stream" # mount app in {BasePath} subdirectory
 ```
 
 A list of items is available as json:
