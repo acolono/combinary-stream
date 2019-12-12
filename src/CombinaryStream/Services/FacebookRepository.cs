@@ -45,7 +45,7 @@ namespace CombinaryStream.Services
             var items = new List<StreamItem>();
             using (var conn = new NpgsqlConnection(_connectionString)) {
                 if (!_pageids.Any()) {
-                    _pageids.AddRange(await conn.QueryAsync<long>("select page_id from post"));
+                    _pageids.AddRange(await conn.QueryAsync<long>("select distinct page_id from post"));
                 }
                 items.AddRange(await conn.QueryAsync<StreamItem>(sql, new {limit = _limit, pageids = _pageids}));
             }
