@@ -40,7 +40,7 @@
                         }
                     </span>
                     @if (i.PublishedAt != DateTimeOffset.MinValue) {
-                        <span>@i.PublishedAt.ToString(AppSettings.DateFormat)</span>
+                        <span class="combinary__date">@i.PublishedAt.ToString(AppSettings.DateFormat)</span>
                     }
                 </footer>
             </div>
