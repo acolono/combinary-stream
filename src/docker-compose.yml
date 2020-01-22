@@ -1,0 +1,18 @@
+version: "2.2"
+services:
+  stream:
+    # image: quay.io/0xff/combinary-stream:master
+    build: .
+    environment:
+      Rss:0:FeedUrl: "https://www.drupal.org/planet/rss.xml"
+      Rss:0:Limit: "100"
+      CacheTtl: "0"
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    read_only: true
+    mem_limit: "1g"
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp
