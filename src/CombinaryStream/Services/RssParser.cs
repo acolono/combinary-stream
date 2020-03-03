@@ -4,26 +4,38 @@ using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Schema;
 using CombinaryStream.Models;
+using Microsoft.Extensions.Logging;
 
 namespace CombinaryStream.Services
 {
     public class RssParser : IItemRepository
     {
+        private readonly ILogger<RssParser> _logger;
         private List<RssSettings> _settings;
-        public RssParser(AppSettings settings) {
+        public RssParser(AppSettings settings, ILogger<RssParser> logger) {
+            _logger = logger;
             _settings = settings.Rss;
         }
 
         private const string MediaNamespace = "http://search.yahoo.com/mrss/";
         private const string DcNamespace = "http://purl.org/dc/elements/1.1/";
 
-        public Task<List<StreamItem>> GetFeedAsync(string feedUrl, int limit) {
+        public async Task<List<StreamItem>> GetFeedAsync(string feedUrl, int limit) {
+            try {
+                return await InternalGetFeedAsync(feedUrl, limit);
+            } catch (Exception e) {
+                _logger.LogError(e, $"Error parsing feed: '{feedUrl}'");
+            }
+            return new List<StreamItem>();
+        }
+
+        public Task<List<StreamItem>> InternalGetFeedAsync(string feedUrl, int limit) {
             var items = new List<StreamItem>();
             if(string.IsNullOrWhiteSpace(feedUrl) || limit <= 0) return Task.FromResult(items);
             using (var reader = XmlReader.Create(feedUrl)) {
                 var feed = SyndicationFeed.Load(reader);
+                _logger.LogInformation($"Feed: {feedUrl}; Items: {feed.Items.Count()} ");
                 foreach (var i in feed.Items) {
                     var item = new StreamItem {
                         Url = i.Links.FirstOrDefault()?.Uri?.ToString(),
