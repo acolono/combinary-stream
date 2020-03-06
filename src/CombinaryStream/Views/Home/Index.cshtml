@@ -8,26 +8,16 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>CombinaryStream</title>
-    <link rel="stylesheet" href="~/css/items.css" asp-append-version="true"/>
 </head>
 <body>
+
 <section style="text-align: center; font-size: 200%">
     <a asp-action="JsonItems">Json</a> |
     <a asp-action="HtmlItems">Html</a>
 </section>
-<section class="l-combinary">
-    @await Html.PartialAsync("_ItemsPartial", Model)
-</section>
-<script>
-    window.addEventListener('load', function(){
-        // hide smaller images
-        Array.prototype.slice.call(document.querySelectorAll(".combinary__media")).forEach(function(m){
-            var img = m.querySelector("img");
-            if(img.naturalWidth <= 64 && img.naturalHeight <= 64) {
-                m.style.display = 'none';
-            }
-        });
-    });
-</script>
+
+<div class="combinary" data-url="items.json" data-items="8" data-search="1" data-filter="1" data-limit-char="500"></div>
+<script src="https://unpkg.com/@@acolono/combinary@1.0.2/widget.min.js" type="text/javascript"></script>
+
 </body>
 </html>
