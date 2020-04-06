@@ -8,16 +8,55 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>CombinaryStream</title>
+    <style>
+        .combinary-demo-info {
+            display: block;
+            color: white;
+            background-color: #303030;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            flex-direction: row;
+            align-content: space-between;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+        .combinary-demo-info a {
+            color: white;
+        }
+        .combinary-demo-info > * {
+            padding: 20px;
+        }
+        .combinary-demo-info > :last-child {
+            background-color: #b2cb07;
+            color: black;
+        }
+        .combinary-demo-info > :last-child a {
+            color: black;
+        }
+    </style>
 </head>
 <body>
 
-<section style="text-align: center; font-size: 200%">
-    <a asp-action="JsonItems">Json</a> |
-    <a asp-action="HtmlItems">Html</a>
-</section>
+    <section class="combinary-demo-info">
+        <div>Demo implementation of a combinary stream. It displays aggregated elements from a self hosted open source <a href="https://www.acolono.com/combinary" target="_blank">combinary suite</a> by <a href="https://www.acolono.com/" target="_blank">acolono GmbH</a></div>
+        <div>
+            <small>use:</small> <a href="https://app.gitbook.com/@@acolono/s/combinary/combinary-stream/embed-code" target="_blank">Documentation</a><br>
+            <small>source:</small> <a asp-action="JsonItems" target="_blank">JSON</a> / <a asp-action="HtmlItems">HTML</a>
+        </div>
+    </section>
+    <!-- Start implementation of widget -->
 
-<div class="combinary" data-url="items.json" data-items="8" data-search="1" data-filter="1" data-limit-char="500"></div>
-<script src="https://unpkg.com/@@acolono/combinary@1.0.2/widget.min.js" type="text/javascript"></script>
+    <div class="combinary" data-url="items.json" data-items="16" data-search="1" data-filter="1" data-limit-char="500"></div>
+    <link href="https://unpkg.com/@@acolono/combinary/widget.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/@@acolono/combinary/widget.min.js" type="text/javascript"></script>
+
+    <!--  End implementation of widget -->
 
 </body>
 </html>
